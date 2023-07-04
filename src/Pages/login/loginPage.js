@@ -27,7 +27,7 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       <div className="login-container">
-        <h2>Login</h2>
+        <h2>AI Promts Library</h2>
         <form>
           <FormInput
             type="email"
@@ -46,7 +46,7 @@ const LoginPage = () => {
           <Button onClick={handleLogin}>Login</Button>
         </form>
         <p className="register-link" onClick={handleRegister}>
-          ¿No tienes una cuenta? Crear una cuenta
+          Don't have an account? Create an account
         </p>
       </div>
     </div>
