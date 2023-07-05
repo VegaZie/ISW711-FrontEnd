@@ -8,7 +8,7 @@ const Router = () => {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} errorElement={<Error/>}/>
+          <Route path="/" element={<Login />} errorElement={<Error/>}/>
           <Route path="/register" element={<Register />} errorElement={<Error/>}/>
         </Routes>
       </BrowserRouter>
