@@ -1,0 +1,23 @@
+.home-page {
+  background-color: #111;
+  padding: 16px;
+  color: #fff;
+
+  &__content {
+    margin-top: 32px;
+
+    h2 {
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
+
+  &__card-container {
+    background-color: #222;
+    padding: 16px;
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 15px;
+  }
+}
