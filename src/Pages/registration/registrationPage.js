@@ -1,30 +1,63 @@
-import React, { useState } from 'react';
-import FormInput from '../../components/formInput/formInput';
-import Button from '../../components/button/button';
-import './registrationPage.scss';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+import FormInput from "../../components/formInput/formInput";
+import Button from "../../components/button/button";
+import ErrorMessage from "../../components/error/errorMessage";
+import SuccessMessage from "../../components/successMessage/successMessage";
+import "./registrationPage.scss";
 
 const RegisterPage = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
-  const handleRegister = () => {
-    // axios.post('process.env.USER_API_URL', { name, email, password })
-    //   .then(response => {
-    //     // Redireccionar a la página de inicio de sesión.
-    //   })
-    //   .catch(error => {
-    //     // Manejar el error de registro.
-    //   });
+  const handleRegister = (event) => {
+    event.preventDefault();
+    
+    const data = {
+      name,
+      email,
+      password,
+      role: "user",
+      token: "",
+      verified: false,
+    };
+
+    console.log(process.env.REACT_APP_USER_SIGN_UP);
+
+    axios
+      .post(process.env.REACT_APP_USER_SIGN_UP, data)
+      .then((response) => {
+        setSuccess(true);
+      })
+      .catch((errorM) => {
+        console.log(errorM);
+        setErrorMessage(errorM);
+        setError(true);
+      });
+  };
+
+  const handleAcceptError = () => {
+    setError(false);
+  };
+  const handleAcceptSuccess = () => {
+    setSuccess(false);
+    navigate("/");
   };
 
   return (
     <div className="register-page">
       <div className="register-container">
-        <h2>Register</h2>
+        <h2>AI Promts Register</h2>
         <form>
-        <FormInput
+          <FormInput
             type="name"
             label="Name"
             value={name}
@@ -54,6 +87,18 @@ const RegisterPage = () => {
           />
           <Button onClick={handleRegister}>Register</Button>
         </form>
+        {success && (
+          <SuccessMessage
+            message={"Registro de usuario exitoso"}
+            onAccept={handleAcceptSuccess}
+          />
+        )}
+        {error && (
+          <ErrorMessage
+            message={"Registro de usuario fallido " + errorMessage}
+            onAccept={handleAcceptError}
+          />
+        )}
       </div>
     </div>
   );
