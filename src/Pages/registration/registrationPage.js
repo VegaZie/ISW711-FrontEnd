@@ -30,8 +30,6 @@ const RegisterPage = () => {
       verified: false,
     };
 
-    console.log(process.env.REACT_APP_USER_SIGN_UP);
-
     axios
       .post(process.env.REACT_APP_USER_SIGN_UP, data)
       .then((response) => {
