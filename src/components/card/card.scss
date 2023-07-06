@@ -1,0 +1,53 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: #111;
+    padding: 16px;
+    color: #fff;
+  
+    &__info {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 8px;
+  
+      & > * + * {
+        margin-top: 4px;
+      }
+    }
+  
+    &__name {
+      font-size: 18px;
+      font-weight: bold;
+    }
+  
+    &__admin-info,
+    &__user-info {
+      display: flex;
+  
+      & > * + * {
+        margin-left: 8px;
+      }
+    }
+  
+    &__email,
+    &__status {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+  
+    &__type,
+    &__tags {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+  
+    &__buttons {
+      display: flex;
+      justify-content: flex-end;
+  
+      & > * + * {
+        margin-left: 8px;
+      }
+    }
+  }
+  
