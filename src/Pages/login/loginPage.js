@@ -26,7 +26,11 @@ const LoginPage = () => {
       .then((response) => {
         console.log(response.data.token);
         sessionStorage.setItem('token', response.data.token);
-        // navigate("/home")
+        sessionStorage.setItem('role', response.data.userRole);
+        sessionStorage.setItem('id', response.data.userId);
+        sessionStorage.setItem('name', response.data.userName );
+
+          navigate("/home")
       })
       .catch((errorM) => {
         console.log(errorM);
