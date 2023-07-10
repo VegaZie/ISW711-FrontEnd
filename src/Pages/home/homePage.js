@@ -1,19 +1,26 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import Navigation from "../../components/navigation/navigationBar";
 import Card from "../../components/card/card";
 import "./homePage.scss";
 
 const HomePage = () => {
+  const name = sessionStorage.getItem("name");
+  const role = sessionStorage.getItem("role");
+  const navigate = useNavigate();
+  const handleLogOut = () => {
+    sessionStorage.clear();
+    navigate("/");
+  };
+
   return (
     <div className="home-page">
       <Navigation
         appName="AI Promts"
-        userName="John Doe"
-        role="User"
-        onLogout={() => {
-          // Lógica para cerrar sesión
-          console.log("Cerrar sesión");
-        }}
+        userName={name}
+        role={role}
+        onLogout={handleLogOut}
       />
       <div className="home-page__content">
         <h2>Elementos</h2>
