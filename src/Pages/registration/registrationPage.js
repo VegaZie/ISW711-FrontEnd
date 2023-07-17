@@ -20,13 +20,26 @@ const RegisterPage = () => {
 
   const handleRegister = (event) => {
     event.preventDefault();
-    
+
+    // Validar que los campos no estén vacíos
+    if (!name || !email || !password || !confirmPassword) {
+      setErrorMessage("Por favor, complete todos los campos.");
+      setError(true);
+      return;
+    }
+
+    // Validar que las contraseñas coincidan
+    if (password !== confirmPassword) {
+      setErrorMessage("Las contraseñas no coinciden.");
+      setError(true);
+      return;
+    }
+
     const data = {
       name,
       email,
       password,
       role: "user",
-      token: "",
       verified: false,
     };
 
@@ -37,7 +50,7 @@ const RegisterPage = () => {
       })
       .catch((errorM) => {
         console.log(errorM);
-        setErrorMessage(errorM);
+        setErrorMessage("Registro de usuario fallido.");
         setError(true);
       });
   };
@@ -45,6 +58,7 @@ const RegisterPage = () => {
   const handleAcceptError = () => {
     setError(false);
   };
+
   const handleAcceptSuccess = () => {
     setSuccess(false);
     navigate("/");
@@ -57,7 +71,7 @@ const RegisterPage = () => {
         <form>
           <FormInput
             type="name"
-            label="Name"
+            label="Nombre"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
@@ -71,14 +85,14 @@ const RegisterPage = () => {
           />
           <FormInput
             type="password"
-            label="Password"
+            label="Contraseña"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
           <FormInput
             type="password"
-            label="Confirm Password"
+            label="Confirmar contraseña"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
@@ -93,7 +107,7 @@ const RegisterPage = () => {
         )}
         {error && (
           <ErrorMessage
-            message={"Registro de usuario fallido " + errorMessage}
+            message={errorMessage}
             onAccept={handleAcceptError}
           />
         )}
