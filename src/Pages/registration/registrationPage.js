@@ -44,7 +44,7 @@ const RegisterPage = () => {
     };
 
     axios
-      .post(process.env.REACT_APP_USER_SIGN_UP, data)
+      .post(process.env.REACT_APP_USER, data)
       .then((response) => {
         setSuccess(true);
       })
