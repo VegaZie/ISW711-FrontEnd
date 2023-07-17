@@ -21,20 +21,39 @@ const LoginPage = () => {
   const handleLogin = (event) => {
     event.preventDefault();
 
+    // Validar que el campo de email no esté vacío
+    if (!email) {
+      setErrorMessage("Por favor, ingrese su email.");
+      setError(true);
+      return;
+    }
+
+    // Validar que el campo de password no esté vacío
+    if (!password) {
+      setErrorMessage("Por favor, ingrese su contraseña.");
+      setError(true);
+      return;
+    }
+
     axios
-      .post(process.env.REACT_APP_SESSION_AUTHETICATE, { email: email, password: password })
+      .post(process.env.REACT_APP_SESSION_AUTHETICATE, {
+        email: email,
+        password: password,
+      })
       .then((response) => {
         console.log(response.data.token);
-        sessionStorage.setItem('token', response.data.token);
-        sessionStorage.setItem('role', response.data.userRole);
-        sessionStorage.setItem('id', response.data.userId);
-        sessionStorage.setItem('name', response.data.userName );
+        sessionStorage.setItem("token", response.data.token);
+        sessionStorage.setItem("role", response.data.userRole);
+        sessionStorage.setItem("id", response.data.userId);
+        sessionStorage.setItem("name", response.data.userName);
 
-          navigate("/home")
+        navigate("/home");
       })
       .catch((errorM) => {
         console.log(errorM);
-        setErrorMessage(errorM);
+        setErrorMessage(
+          "Credenciales incorrectas. Por favor, inténtelo de nuevo."
+        );
         setError(true);
       });
   };
@@ -46,7 +65,7 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       <div className="login-container">
-        <h2>AI Promts Library</h2>
+        <h2>Biblioteca AI Promts</h2>
         <form>
           <FormInput
             type="email"
@@ -57,7 +76,7 @@ const LoginPage = () => {
           />
           <FormInput
             type="password"
-            label="Password"
+            label="Contraseña"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -65,15 +84,12 @@ const LoginPage = () => {
           <Button onClick={handleLogin}>Login</Button>
         </form>
         <p className="register-link" onClick={handleRegister}>
-          Don't have an account? Create an account
+          ¿No tiene una cuenta? Crear una cuenta
         </p>
       </div>
       {error && (
-          <ErrorMessage
-            message={"Registro de usuario fallido " + errorMessage}
-            onAccept={handleAcceptError}
-          />
-        )}
+        <ErrorMessage message={errorMessage} onAccept={handleAcceptError} />
+      )}
     </div>
   );
 };
