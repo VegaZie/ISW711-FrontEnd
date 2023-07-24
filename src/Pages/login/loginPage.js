@@ -41,7 +41,6 @@ const LoginPage = () => {
         password: password,
       })
       .then((response) => {
-        console.log(response.data.token);
         sessionStorage.setItem("token", response.data.token);
         sessionStorage.setItem("role", response.data.userRole);
         sessionStorage.setItem("id", response.data.userId);
