@@ -1,51 +1,74 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
 import Button from "../button/button";
+import UserPopup from "../popup/userPopup";
+import PromtCompletionsPopup from "../popup/promtCompletionsPopup";
+import PromtEditPopup from "../popup/promtEditPopup";
+import PromtImagePopup from "../popup/promtImagePopup";
 
 import "./card.scss";
 
-const Card = ({ name, type, tags, email, status, isAdmin }) => {
-  const handleView = () => {
+const Card = ({ isAdmin, data }) => {
+  const [userPopup, setUserPopup] = useState(false);
+  const [promtEditPopup, setPromtEditPopup] = useState(false);
+  const [promtCompletionsPopup, setPromtCompletionsPopup] = useState(false);
+  const [promtImagesPopup, setPromtImagesPopup] = useState(false);
+
+  const handleView = (type) => {
+    switch (type) {
+      case "edit":
+        setPromtEditPopup(true);
+        break;
+      case "completions":
+        setPromtCompletionsPopup(true);
+        break;
+      case "image":
+        setPromtImagesPopup(true);
+        break;
+      default:
+        setUserPopup(true);
+        break;
+    }
     // Lógica para observar el elemento
-    console.log("Observar", name);
+  };
+
+  const onClosePopup = () => {
+    setUserPopup(false);
+    setPromtEditPopup(false);
+    setPromtCompletionsPopup(false);
+    setPromtImagesPopup(false);
   };
 
   const handleDelete = () => {
     // Lógica para eliminar el elemento
-    console.log("Eliminar", name);
   };
 
   return (
     <div className="card">
       <div className="card__info">
-        <h2 className="card__name">{name}</h2>
+        <h2 className="card__name">{data.name}</h2>
         {!isAdmin ? (
           <div className="card__user-info">
-            <span className="card__type">{type}</span>
-            <span className="card__tags">{tags}</span>
+            <span className="card__type">{data.type}</span>
+            <span className="card__tags">{data.tags}</span>
           </div>
         ) : (
           <div className="card__admin-info">
-            <span className="card__email">{email}</span>
-            <span className="card__status">{status}</span>
+            <span className="card__email">{data.email}</span>
+            <span className="card__status">{data.status}</span>
           </div>
         )}
       </div>
       <div className="card__buttons">
-        <Button onClick={handleView} icon="view" />
+        <Button onClick={() => handleView(data.type)} icon="view" />
         <Button onClick={handleDelete} icon="delete" />
       </div>
+
+      {userPopup && <UserPopup data={data} onClose={onClosePopup}/>}
+      {promtCompletionsPopup && <PromtCompletionsPopup data={data} onClose={onClosePopup}/>}
+      {promtEditPopup && <PromtEditPopup data={data} onClose={onClosePopup}/>}
+      {promtImagesPopup && <PromtImagePopup data={data} onClose={onClosePopup} />}
     </div>
   );
-};
-
-Card.propTypes = {
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  tags: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired,
-  isAdmin: PropTypes.bool,
 };
 
 export default Card;
