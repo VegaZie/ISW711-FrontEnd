@@ -54,7 +54,7 @@ const HomePage = () => {
   const fetchData = useCallback(() => {
     const url = userRole
       ? process.env.REACT_APP_USER
-      : process.env.REACT_APP_PROMTS + `/edit?userID=${userID}`;
+      : process.env.REACT_APP_PROMTS + `?userID=${userID}`;
     axios
       .get(url, {
         headers: {
