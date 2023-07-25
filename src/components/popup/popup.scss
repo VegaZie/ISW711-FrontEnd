@@ -29,13 +29,29 @@
     }
 
     input[type="text"],
-    textarea {
+    textarea,
+    select {
       width: 100%;
       margin-bottom: 16px;
       padding: 8px;
       border: 1px solid #ccc;
       border-radius: 4px;
       font-size: 14px;
+      &:focus {
+        outline: none;
+        border-color: #007bff; /* Cambiar el color del borde cuando el select está enfocado */
+      }
+    }
+
+    img {
+      max-width: 1024px;
+      min-width: 256px;
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     input[type="text"] {
@@ -70,4 +86,3 @@
     }
   }
 }
-
