@@ -97,7 +97,7 @@ const RegisterPage = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-          <Button onClick={handleRegister}>Register</Button>
+          <Button onClick={handleRegister}>Registrarse</Button>
         </form>
         {success && (
           <SuccessMessage
