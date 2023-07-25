@@ -2,35 +2,27 @@ import React, { useState } from "react";
 import { TagsInput } from "react-tag-input-component";
 
 import "./popup.scss";
-import "./tags.css"
+import "./tags.css";
 
-const PromtEditPopup = ({ data, name, onClose }) => {
+const PromtEditPopup = ({ data, onClose }) => {
   const [editedName, setEditedName] = useState(data.name);
-  const [editedInstructions, setEditedInstructions] = useState(data.instruction);
+  const [editedInstructions, setEditedInstructions] = useState(
+    data.instruction
+  );
   const [editedInput, setEditedInput] = useState(data.input);
   const [editedTags, setEditedTags] = useState(data.tags);
   const [editedResponse, setEditedResponse] = useState(data.response);
 
-  const handleEdit = () => {
-    // Lógica para editar la información del promt edit
-    console.log(
-      "Editar Promt Edit",
-      editedName,
-      editedInstructions,
-      editedTags,
-      editedResponse
-    );
-    onClose();
-  };
+  const handleEdit = () => {};
 
-  const handleDelete = () => {
-    // Lógica para eliminar la información del promt edit
-    console.log("Eliminar Promt Edit", name);
-    onClose();
-  };
+  const handleDelete = () => {};
 
   const handleCancel = () => {
     onClose();
+  };
+
+  const executePromt = () => {
+    setEditedResponse("s");
   };
 
   return (
@@ -63,14 +55,14 @@ const PromtEditPopup = ({ data, name, onClose }) => {
           placeHolder="agrega tags"
         />
         <label>Respuesta</label>
-        <textarea
-          value={editedResponse}
-          onChange={(e) => setEditedResponse(e.target.value)}
-        />
         <div className="popup__buttons">
-          <button onClick={handleEdit}>Save</button>
-          <button onClick={handleDelete}>Delete</button>
-          <button onClick={handleCancel}>Cancel</button>
+          <button onClick={executePromt}>Correr promt</button>
+        </div>
+        <textarea value={editedResponse} readOnly />
+        <div className="popup__buttons">
+          <button onClick={handleEdit}>Editar</button>
+          <button onClick={handleDelete}>Eliminar</button>
+          <button onClick={handleCancel}>Salir</button>
         </div>
       </div>
     </div>

@@ -28,6 +28,10 @@ const PromtCompletionsPopup = ({ data, name, onClose }) => {
     onClose();
   };
 
+  const handleCancel = () => {
+    onClose();
+  };
+
   const executePromt = () => {
     setEditedResponse("s")
   }
@@ -64,14 +68,17 @@ const PromtCompletionsPopup = ({ data, name, onClose }) => {
           placeHolder="agrega tags"
         />
         <label>Respuesta</label>
+        <div className="popup__buttons">
+          <button onClick={executePromt}>Correr promt</button>
+        </div>
         <textarea
           value={editedResponse}
           readOnly
         />
         <div className="popup__buttons">
-          <button onClick={handleEdit}>Run</button>
-          <button onClick={handleDelete}>Delete</button>
-          <button onClick={onClose}>Cancel</button>
+          <button onClick={handleEdit}>Editar</button>
+          <button onClick={handleDelete}>Eliminar</button>
+          <button onClick={handleCancel}>Salir</button>
         </div>
       </div>
     </div>
