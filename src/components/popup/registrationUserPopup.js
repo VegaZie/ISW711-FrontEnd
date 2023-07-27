@@ -63,6 +63,10 @@ const RegistrationPopup = ({ onClose, onSucess }) => {
     onClose(); 
   };
 
+  const handleCancel = () => {
+    onClose();
+  };
+
   return (
     <div className="registration-popup">
       <div className="registration-container">
@@ -97,7 +101,7 @@ const RegistrationPopup = ({ onClose, onSucess }) => {
             required
           />
           <Button onClick={handleRegister}>Registrarse</Button>
-          <Button onClick={onClose}>Cancelar</Button>
+          <Button onClick={handleCancel}>Cancelar</Button>
         </form>
         {success && (
           <SuccessMessage
