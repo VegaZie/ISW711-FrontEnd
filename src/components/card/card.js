@@ -56,9 +56,12 @@ const Card = ({ isAdmin, data, token, onSucess }) => {
   };
 
   const handleDelete = () => {
-    const id = data._id;
+    const infoID = data._id;
+    const url = isAdmin
+      ? process.env.REACT_APP_USER + `?id=${infoID}`
+      : process.env.REACT_APP_PROMTS + `?id=${infoID}`;
     axios
-      .delete(process.env.REACT_APP_PROMTS + `?id=${id}`, {
+      .delete(url, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
