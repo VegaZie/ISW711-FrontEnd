@@ -82,7 +82,7 @@ const PromtCreatePopup = ({ onClose, onSucess, id, token }) => {
       const data = {
         name: name,
         promt: promt,
-        quantity: imageCount,
+        quantity: parseInt(imageCount),
         size: imageSize,
         userID: id,
         type: "images",
