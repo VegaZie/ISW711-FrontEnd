@@ -87,7 +87,7 @@ const PromtCreatePopup = ({ onClose, onSucess, id, token }) => {
         userID: id,
         type: "images",
         tags: tags,
-        response: "",
+        imageresponse: "",
       };
 
       axios
