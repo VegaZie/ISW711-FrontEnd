@@ -84,9 +84,27 @@ const PromtEditPopup = ({ data, onClose, onSucess, token }) => {
     setError(false);
   };
 
-
   const executePromt = () => {
-    setEditedResponse("s");
+    const data = {
+      model: "text-davinci-edit-001",
+      input: editedInput,
+      instruction: editedInstructions,
+    };
+
+    axios
+      .post(process.env.REACT_APP_OPEN_EDIT, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setEditedResponse(response.data.choices[0].text);
+      })
+      .catch((errorM) => {
+        console.log(errorM);
+        setErrorMessage("Error al ejecutar el promt");
+        setError(true);
+      });
   };
 
   return (
