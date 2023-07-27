@@ -11,19 +11,17 @@ import "./tags.css";
 
 const PromtImagePopup = ({ data, onSucess, onClose, token }) => {
   const promtID = data._id;
-console.log(promtID)
   const [editedName, setEditedName] = useState(data.name);
   const [editedPromt, setEditedPromt] = useState(data.promt);
   const [editedImageType, setEditedImageType] = useState(data.size);
   const [editedImageCount, setEditedImageCount] = useState(data.quantity);
   const [editedTags, setEditedTags] = useState(data.tags);
-  const [editedResponse, setEditedResponse] = useState(data.response);
+  const [editedResponse, setEditedResponse] = useState(data.imageresponse);
 
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
-
 
   const handleEdit = () => {
     const data = {
@@ -86,7 +84,28 @@ console.log(promtID)
   };
 
   const executePromt = () => {
-    setEditedResponse("s");
+    const data = {
+      prompt: editedPromt,
+      quantity: parseInt(editedImageCount),
+      size: editedImageType,
+    };
+    console.log(typeof editedPromt);
+
+    axios
+      .post(process.env.REACT_APP_OPEN_IMAGES, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data.data);
+        setEditedResponse(response.data.data);
+      })
+      .catch((errorM) => {
+        console.log(errorM);
+        setErrorMessage("Error al ejecutar el promt");
+        setError(true);
+      });
   };
 
   return (
@@ -133,10 +152,16 @@ console.log(promtID)
         <div className="popup__buttons">
           <Button onClick={executePromt}>Correr promt</Button>
         </div>
-        <img
-          src={editedResponse}
-          alt="Imagen creada mediante la el API de OpenAI"
-        />
+        <div className="scroll-container">
+          {editedResponse && editedResponse.length > 0 ? (
+            console.log(editedResponse),
+            editedResponse.map((item, index) => (
+              <img key={index} src={item.url} />
+            ))
+          ) : (
+            <label>No hay imágenes generadas</label>
+          )}
+        </div>
         <div className="popup__buttons">
           <Button onClick={handleEdit}>Editar</Button>
           <Button onClick={handleDelete}>Eliminar</Button>
