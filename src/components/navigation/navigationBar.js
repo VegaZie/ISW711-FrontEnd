@@ -25,7 +25,7 @@ const Navigation = ({ appName, userName, role }) => {
         <span>{role}</span>
       </div>
     </div>
-    <Button onClick={handleLogout}>Log Out</Button>
+    <Button onClick={handleLogout}>Cerrar Sesión</Button>
   </div>
   );
 };
