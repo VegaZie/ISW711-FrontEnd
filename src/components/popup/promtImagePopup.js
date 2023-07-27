@@ -101,8 +101,7 @@ const PromtImagePopup = ({ data, onSucess, onClose, token }) => {
         console.log(response.data.data);
         setEditedResponse(response.data.data);
       })
-      .catch((errorM) => {
-        console.log(errorM);
+      .catch((error) => {
         setErrorMessage("Error al ejecutar el promt");
         setError(true);
       });
@@ -154,7 +153,6 @@ const PromtImagePopup = ({ data, onSucess, onClose, token }) => {
         </div>
         <div className="scroll-container">
           {editedResponse && editedResponse.length > 0 ? (
-            console.log(editedResponse),
             editedResponse.map((item, index) => (
               <img key={index} src={item.url} />
             ))
