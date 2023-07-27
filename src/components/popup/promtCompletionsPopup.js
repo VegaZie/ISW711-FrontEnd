@@ -22,7 +22,6 @@ const PromtCompletionsPopup = ({ data, onClose, token, onSucess }) => {
   const [success, setSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
 
-
   const handleEdit = () => {
     const data = {
       name: editedName,
@@ -83,7 +82,26 @@ const PromtCompletionsPopup = ({ data, onClose, token, onSucess }) => {
   };
 
   const executePromt = () => {
-    setEditedResponse("s");
+    const data = {
+      model: "text-davinci-003",
+      promt: editedPromt,
+      temperature: editedTemperature,
+    };
+
+    axios
+      .post(process.env.REACT_APP_OPEN_COMPLETIONS, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setEditedResponse(response.data.choices[0].text);
+      })
+      .catch((errorM) => {
+        console.log(errorM);
+        setErrorMessage("Error al ejecutar el promt");
+        setError(true);
+      });
   };
 
   return (
