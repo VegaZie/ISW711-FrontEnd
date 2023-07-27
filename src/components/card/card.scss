@@ -4,10 +4,10 @@
   align-items: center;
   background-color: #111;
   color: #fff;
-  padding: 8px;
-  width: 150px;
-  height: 150px;
-  margin: 8px;
+  padding: 16px;
+  width: 200px;
+  height: 200px;
+  margin: 16px;
   border-radius: 8px;
 
   &__info {
@@ -22,7 +22,7 @@
   }
 
   &__name {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
   }
 
@@ -30,8 +30,9 @@
   &__tags,
   &__email,
   &__status {
-    font-size: 12px;
+    font-size: 14px;
     text-align: center;
+    margin-bottom: 8px;
   }
 
   &__buttons {
